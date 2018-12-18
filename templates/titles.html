@@ -1,0 +1,23 @@
+{%extends "base.html"%}
+
+{%block title%}Django Website{%endblock%}
+
+{%block content%}
+<div class="row text-center vertical-middle-sm">
+	<h1>Fate0729</h1>
+</div>
+<div class="row">
+	<div class="col-xs-12 col-md-8">
+		<ul>
+			{%for blog in blogs%}
+				<li><a href="{{blog.id}}">{{blog.id}}{{blog.blog_title}}</a></li> <!--双层花括号表示此处显示变量引用的数据-->				
+			{%endfor%}
+		</ul>
+	</div>
+	<div class="col-xs-6 col-md-4">
+		<h2>广告</h2>
+		<p>http://www.cnblogs.com/xiaobingqianrui/</p>
+		<img width="200px" src="http://127.0.0.1:8000/static/image/Image%201.png">
+	</div>
+</div>
+{%endblock%}

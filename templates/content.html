@@ -1,0 +1,31 @@
+{%extends "base.html"%}
+
+{%load staticfiles%}
+
+{%block title%}blog article{%endblock%}
+
+{%block content%}
+<div class="row text-center vertical-middle-sm">
+	<h1>{{article.blog_title}}</h1>
+</div>
+<div class="row">
+	<div class="col-xs-12 col-md-8">
+		<p class="text-center"><span>{{article.blog_author}}</span>
+		<span style="margin-left:20px">{{article.blog_publish_time}}</span></p>
+		<div>{{article.blog_content}}</div>
+	</div>
+	<div class="col-xs-6 col-md-4">
+		<h2>广告</h2>
+		<p>http://www.cnblogs.com/xiaobingqianrui/</p>
+		<img width="200px" src="http://127.0.0.1:8000/static/image/Image%201.png">
+		<!--<embed src="{%static 'image/yzw.mp3'%}"></embed>-->
+		{%if article.title == "To dudu"%}	
+			<audio style="width:200px;height:40px" controls="controls" autoplay="autoplay" loop="loop">
+				<source src="{%static 'image/杨宗纬 - 我们好像在哪见过.mp3'%}" type="audio/mpeg">
+		{%elif article.title == "海阔天空"%}
+			<audio style="width:200px;height:40px" controls="controls" autoplay="autoplay" loop="loop">
+				<source src="{%static 'image/ljj.mp3'%}" type="audio/mpeg">
+		{%endif%}
+	</div>
+</div>
+{%endblock%}

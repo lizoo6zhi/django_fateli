@@ -1,0 +1,29 @@
+{% extends "base_bky.html" %}
+{% block title %}用户登录 - Django{% endblock %}
+{% block content %}
+	<div style="width: 100%;">
+		<div align="center">
+			<div id="Main">
+				<form method="post"> {%csrf_token%}
+					<div id="Heading">登录- 代码改变世界</div>
+					<div class="block">
+						<label class="label-line">登录用户名</label>
+						{{ form.username }}
+						<span id="tip_input1" class="tip"></span>
+					</div>
+					<div class="block">
+						<label class="label-line">密码(<a href="" tabindex="-1" class="tb_right">重置</a>)</label>
+						{{ form.password }}
+						<span id="tip_input2" class="tip">{{ form.error }}</span>
+					</div>
+					<div class="block">
+						<input type="submit" id="signin" class="button" value="登 录"> <span id="tip_btn" class="tip"></span>
+					</div>
+					<div class="block nav">
+                        » <a href="{% url 'account:account_register'%}" title="注册用户">立即注册</a><br>
+                    </div>
+				</form>
+			</div>
+		</div>
+	</div>
+{% endblock%}
