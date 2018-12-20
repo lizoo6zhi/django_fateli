@@ -5,21 +5,25 @@ from .models import UserProfile
 import re
 
 class RegisterForm(forms.ModelForm):
-    password1 = forms.CharField(label="PassWord",widget=forms.PasswordInput)
-    password2 = forms.CharField(label="ConfirmPassword",widget=forms.PasswordInput)
+    password = forms.CharField(label="PassWord",widget=forms.PasswordInput)
+    confirm_password = forms.CharField(label="Confirm Password",widget=forms.PasswordInput)
 
     class Meta:
         model = User #决定表单的内容会写到哪个数据库表中的哪些记录中
         fields = ("username","email")
 
-    def clean_password2(self):
+    def clean_confirm_password(self):
         cd = self.cleaned_data
-        if cd["password1"] != cd["password2"]:
+        if cd["password"] != cd["confirm_password"]:
             raise forms.ValidationError("passwords do not match")
-        return cd["password2"]
+        return cd["confirm_password"]
         
 
 class UserProfileForm(forms.ModelForm):
     class Meta:
         model = UserProfile
         fields = ('birday','phone')
+
+    def clean(self):
+        cd = self.cleaned_data
+        return cd

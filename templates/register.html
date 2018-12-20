@@ -1,22 +1,42 @@
-{% extends 'base_bky.html'%}
+{% extends 'base.html'%}
 {% block title %}用户注册 - Django{% endblock %}
 {% block content %}
-	<div class="hidden-xs title-top col-sm-12">
-        注册新用户
-        <hr class="head-hr">
-    </div>
-	<form class="form-horizontal col-sm-8 form-padding" role="form" id="registerForm" method="post" onsubmit="return false" novalidate="novalidate">
-		<div class="form-space-top hidden-xs"></div>
-		<!--每一行-->
-		<div class="form-group">
-			<div class="col-sm-2 control-label">
-				<label class="w4-2" for="Email">邮箱</label>
+	<div class="row text-center vertical-middle-sm">
+		<h1>Register</h1>
+		<p>if you are a user, <strong><a href="{% url 'account:login'%}">Login</a></strong>,please</p>
+		<p>or register.</p>
+		<form class="form-horizontal" action="." method="post">{% csrf_token %}
+			<div class ="form-group">
+				<label for="{{registerform.username.id_for_label}}" class="col-md-5 control-label">Username</label>
+				<div class="col-md-6 text-left">{{registerform.username}}</div>
 			</div>
-			<div class="col-sm-10 has-feedback">
-				<input class="form-control" placeholder="需要通过邮件激活帐户" type="email" data-val="true" data-val-checkemailpostfix="不支持该邮箱后缀" data-val-email="邮箱格式错误" data-val-length="邮箱地址不能超过120个字符" data-val-length-max="120" data-val-regex="邮箱地址错误或不支持" data-val-regex-pattern="[\w!#\$%&amp;'\*\+\-\/=\^_`{\|}~.]+@([\w-]+\.)+(com|net|cn|org|me|cc|biz)$" data-val-remote="'邮箱' is invalid." data-val-remote-additionalfields="*.Email" data-val-remote-url="/Account/CheckEmail" data-val-required="请输入邮箱地址" id="Email" name="Email">
-				<span class="text-danger field-validation-valid" data-valmsg-for="Email" data-valmsg-replace="true"></span>
-				<span class="glyphicon form-control-feedback"></span>
+			
+			<div class ="form-group">
+				<label for="{{registerform.email.id_for_label}}" class="col-md-5 control-label">Email</label>
+				<div class="col-md-6 text-left">{{registerform.email}}</div>
 			</div>
-		</div>
-	<form>		
+			
+			<div class ="form-group">
+				<label for="{{registerform.password.id_for_label}}" class="col-md-5 control-label">Password</label>
+				<div class="col-md-6 text-left">{{registerform.password}}</div>
+			</div>
+			
+			<div class ="form-group">
+				<label for="{{registerform.confirm_password.id_for_label}}" class="col-md-5 control-label">Confirm Password</label>
+				<div class="col-md-6 text-left">{{registerform.confirm_password}}</div>
+			</div>
+			
+			<div class ="form-group">
+				<label for="{{userprofileform.birday.id_for_label}}" class="col-md-5 control-label">Birday Date</label>
+				<div class="col-md-6 text-left">{{userprofileform.birday}}</div>
+			</div>
+			
+			<div class ="form-group">
+				<label for="{{userprofileform.phone.id_for_label}}" class="col-md-5 control-label">Phone</label>
+				<div class="col-md-6 text-left">{{userprofileform.phone}}</div>
+			</div>
+			
+			<input type="submit" class="btn btn-primary btn-lg" value="REGISTER">
+		</form>
+	</div>
 {% endblock%}

@@ -11,12 +11,15 @@
 				<li><a href="{% url 'blog:blog_titles'%}">BLOG</a></li>
 			</ul>
 			<ul class="nav navbar-nav navbar-right" style="margin-right:10px">
-				{% if user.is_authenticated %}
+				<!--{% if user.is_authenticated %}
 					<li><a href="#">{{user.username}}</a></li>
-					<li><a href="#">Logout</a></li>
+					<li><a href="{% url 'account:logout'%}">Logout</a></li>
 				{% else %}
 					<li><a href="{% url 'account:login' %}">LOGIN</a></li>
-				{% endif %}
+				{% endif %}-->
+				<li><a href="{% url 'account:login' %}">LOGIN</a></li>
+				<li><a href="{% url 'account:logout'%}">Logout</a></li>
+				<li><a href="{% url 'account:password_change'%}">ChangePassword</a></li>
 			</ul>
 		</div>
 	</nav>
