@@ -1,12 +1,10 @@
-from django.shortcuts import render
 from django.http.response import HttpResponse,HttpResponseRedirect
 from django.shortcuts import render,redirect
 from .forms import RegisterForm,UserProfileForm
-import re
-
+from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.contrib.auth import logout, login,views as auth_views
-from django.views import View
+from django.urls.base import reverse
 
 # Create your views here.
 def RegisterView(request):
@@ -22,14 +20,11 @@ def RegisterView(request):
             userprofile = userprofileform.save(commit=False)
             userprofile.user = newuser
             userprofile.save()
-            data = registerform.cleaned_data
-            format_string = 'username:{username}<br/>password:{password}<br/>confirmpassword:{confirm_password}'.format(**data)
-            print('format_string:', format_string)
-            return HttpResponse(format_string)
+            #data = registerform.cleaned_data
+            #format_string = 'username:{username}<br/>password:{password}<br/>confirmpassword:{confirm_password}'.format(**data)
+            return redirect(reverse('account:login'))
         else:
             return render(request, 'register.html', {"registerform":registerform, 'userprofileform':userprofileform})
-
-from django.urls.base import reverse
 
 #使用django自带的LoginView
 class LoginViewEx(auth_views.LoginView):
@@ -50,8 +45,20 @@ class LoginViewEx(auth_views.LoginView):
         else:
             return redirect('/account/login/')
 
-from django.contrib.auth.decorators import login_required
 @login_required
 def logoutex(request):
     logout(request)
     return redirect('/blog/')
+
+
+class PasswordChangeDoneViewEx(auth_views.PasswordChangeDoneView):
+    def __init__(self):
+        self.user = User
+
+    @login_required
+    def dispatch(self, *args, **kwargs):
+        return super().dispatch(*args, **kwargs)
+
+    def get(self, request, *args, **kwargs):
+        """Handle GET requests: instantiate a blank version of the form."""
+        return HttpResponseRedirect(reverse('blog:blog_titles'))
