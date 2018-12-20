@@ -1,0 +1,43 @@
+{% extends 'base.html'%}
+{% block title %}My Information{% endblock %}
+{% block content %}
+	<div class='row text-center vertical-middle-sm'>
+		<h1>My Information</h1>
+		<div class='row'>
+			<div class="col-md-8">
+				<div class="row">
+					<div class="col-md-4 text-right"><span>用户名：</span></div>
+					<div class="col-md-8 text-left">{{user.username}}</div>
+				</div>
+				<div class="row">
+					<div class="col-md-4 text-right"><span>邮箱：</span></div>
+					<div class="col-md-8 text-left">{{user_form.email}}</div>
+				</div>
+				
+				<div class="row">
+					<div class="col-md-4 text-right"><span>生日：</span></div>
+					<div class="col-md-8 text-left">{{userprofile_form.birday}}</div>
+				</div>
+				<div class="row">
+					<div class="col-md-4 text-right"><span>电话号码：</span></div>
+					<div class="col-md-8 text-left">{{userprofile_form.phone}}</div>
+				</div>
+				
+				<div class="row">
+					<div class="col-md-4 text-right"><span>学校：</span></div>
+					<div class="col-md-8 text-left">{{my_formation_form.school}}</div>
+				</div>
+				<div class="row">
+					<div class="col-md-4 text-right"><span>公司：</span></div>
+					<div class="col-md-8 text-left">{{my_formation_form.company}}</div>
+				</div>
+				<div class="row">
+					<div class="col-md-4 text-right"><span>职业：</span></div>
+					<div class="col-md-8 text-left">{{my_formation_form.profession}}</div>
+				</div>
+				</br>
+				<p style="color:black">>>> <a href ="{% url 'account:edit_my_information'%}">Edit</a></p>
+			</div>
+		</div>
+	</div>
+{% endblock %}

@@ -1,7 +1,7 @@
 from django import forms
 from django.contrib.auth.models import User  #默认用户模型User
 from django.core.exceptions import ValidationError
-from .models import UserProfile
+from .models import UserProfile,My_Formation
 import re
 
 class RegisterForm(forms.ModelForm):
@@ -27,3 +27,13 @@ class UserProfileForm(forms.ModelForm):
     def clean(self):
         cd = self.cleaned_data
         return cd
+
+class My_Information_Form(forms.ModelForm):
+    class Meta:
+        model = My_Formation
+        fields = ("school","company", "profession")
+
+class UserForm(forms.ModelForm):
+    class Meta:
+        model = User
+        fields = ("email",)

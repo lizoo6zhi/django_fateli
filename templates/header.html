@@ -12,7 +12,7 @@
 			</ul>
 			<ul class="nav navbar-nav navbar-right" style="margin-right:10px">
 				{% if user.is_authenticated %}
-					<li><a href="#">{{user.username}}</a></li>
+					<li><a href="{% url 'account:show_my_information' %}">{{user.username}}</a></li>
 					<li><a href="{% url 'account:logout'%}">Logout</a></li>
 				{% else %}
 					<li><a href="{% url 'account:login' %}">LOGIN</a></li>
