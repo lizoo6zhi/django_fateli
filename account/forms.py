@@ -17,16 +17,39 @@ class RegisterForm(forms.ModelForm):
         if cd["password"] != cd["confirm_password"]:
             raise forms.ValidationError("passwords do not match")
         return cd["confirm_password"]
-        
 
-class UserProfileForm(forms.ModelForm):
+
+class BaseForm(forms.ModelForm):
+    def error_detail(self):
+        error_response = {}
+        error_response['status'] = 2
+        error_response['msg'] = 'form validate error'
+        error_response['data'] = self.errors
+        print('errors:', self.errors)
+        print('errors.as_data:', self.errors.as_data)
+        return error_response
+
+# 电话号码验证器
+from django.core.exceptions import ValidationError
+import re
+def mobile_validate(value):
+        mobile_re = re.compile(r'^(13[0-9]|15[012356789]|17[678]|18[0-9]|14[57])[0-9]{8}$')
+        if not mobile_re.match(value):
+            raise ValidationError('phone format error')
+
+from django.forms.widgets import DateInput
+class UserProfileForm(BaseForm):
+    birday = forms.DateField(widget=DateInput(attrs={'placeholder': u'格式：1970-1-1'}))
+    phone = forms.CharField(label="phone", validators=[mobile_validate,], widget=forms.TextInput)
+
     class Meta:
         model = UserProfile
         fields = ('birday','phone')
 
     def clean(self):
-        cd = self.cleaned_data
-        return cd
+        if not self.errors:
+            pass
+        return self.cleaned_data
 
 class My_Information_Form(forms.ModelForm):
     class Meta:

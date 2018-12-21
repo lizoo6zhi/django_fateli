@@ -1,4 +1,4 @@
-from django.http.response import HttpResponse,HttpResponseRedirect
+from django.http.response import HttpResponse,HttpResponseRedirect,JsonResponse
 from django.shortcuts import render,redirect
 from .forms import RegisterForm,UserProfileForm,My_Information_Form,UserForm
 from django.contrib.auth.decorators import login_required
@@ -87,9 +87,9 @@ def Edit_My_Infomation(request):
                                                         "profession":my_formation.profession})
         return render(request, 'edit_my_information.html',{"user_form":user_form, "userprofile_form":userprofile_form, "my_formation_form":my_formation_form})
     else:
-        user_form = UserForm(request.POST)
-        userprofile_form = UserProfileForm(request.POST)
-        my_formation_form = My_Information_Form(request.POST)
+        user_form = UserForm(data=request.POST)
+        userprofile_form = UserProfileForm(data=request.POST)
+        my_formation_form = My_Information_Form(data=request.POST)
         if user_form.is_valid() * userprofile_form.is_valid() * my_formation_form.is_valid():
             user_cd = user_form.cleaned_data
             profile_cd = userprofile_form.cleaned_data
@@ -105,7 +105,10 @@ def Edit_My_Infomation(request):
             current_user.save()
             userProfile.save()
             my_formation.save()
-        return HttpResponseRedirect(reverse('account:show_my_information'))
+            return HttpResponseRedirect(reverse('account:show_my_information'))
+        else:
+            return JsonResponse(data=userprofile_form.error_detail())
+        
 
 @login_required
 def Show_My_Infomation(request):
