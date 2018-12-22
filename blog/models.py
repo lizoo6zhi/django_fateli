@@ -16,7 +16,7 @@ from django.utils import timezone
 class BlogModel(models.Model):
     blog_title = models.CharField(max_length = 300)
     blog_content = models.TextField()
-    blog_author = models.ForeignKey(User, on_delete=models.PROTECT, related_name='blog_posts')
+    blog_author = models.ForeignKey(User, on_delete=models.CASCADE, related_name='blog_posts')
     blog_publish_time = models.DateTimeField(default=timezone.now)
 
     class Meta:

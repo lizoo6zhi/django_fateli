@@ -25,11 +25,11 @@ def RegisterView(request):
             #format_string = 'username:{username}<br/>password:{password}<br/>confirmpassword:{confirm_password}'.format(**data)
             return redirect(reverse('account:login'))
         else:
-            return render(request, 'register.html', {"registerform":registerform, 'userprofileform':userprofileform})
+            return render(request, 'account/register.html', {"registerform":registerform, 'userprofileform':userprofileform})
 
 #使用django自带的LoginView
 class LoginViewEx(auth_views.LoginView):
-    template_name = 'login.html'
+    template_name = 'account/login.html'
     def get(self, request, *args, **kwargs):
         """Handle GET requests: instantiate a blank version of the form."""
         return self.render_to_response(self.get_context_data())
@@ -85,7 +85,7 @@ def Edit_My_Infomation(request):
         my_formation_form = My_Information_Form(initial={"school":my_formation.school, 
                                                         "company":my_formation.company,
                                                         "profession":my_formation.profession})
-        return render(request, 'edit_my_information.html',{"user_form":user_form, "userprofile_form":userprofile_form, "my_formation_form":my_formation_form})
+        return render(request, 'account/edit_my_information.html',{"user_form":user_form, "userprofile_form":userprofile_form, "my_formation_form":my_formation_form})
     else:
         user_form = UserForm(data=request.POST)
         userprofile_form = UserProfileForm(data=request.POST)
@@ -116,6 +116,6 @@ def Show_My_Infomation(request):
         CreateUser(request.user)
         userProfile = UserProfile.objects.get(user=request.user)
         my_formation = My_Formation.objects.get(user=request.user)
-        return render(request, 'show_my_information.html',{"user_form":request.user, "userprofile_form":userProfile, "my_formation_form":my_formation})
+        return render(request, 'account/show_my_information.html',{"user_form":request.user, "userprofile_form":userProfile, "my_formation_form":my_formation})
     else:
         return HttpResponse("ok")
