@@ -42,7 +42,7 @@
 				yes:function(index,layero){
 					column_name=$('#id_column').val();
 					$.ajax({
-						url:'{% url "article:article-column" %}',
+						url:'{% url "article:article_column" %}',
 						type:'POST',
 						data:{'column':column_name},
 						success:function(e){
