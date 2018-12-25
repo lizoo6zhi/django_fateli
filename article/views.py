@@ -78,4 +78,23 @@ def article_post(request):
         else:
             return HttpResponse('3')
 
+@login_required
+@csrf_exempt
+def article_title(request):
+    if request.method == 'GET':
+        articles = ArticlePost.objects.filter(author=request.user)
+        if articles:
+            return render(request, 'article/article_title.html',{"articles":articles})
+        else:
+            return HttpResponse("no article")
 
+@login_required
+@csrf_exempt
+def article_content(request,id,slug):
+    print('article_title:',article_title)
+    if request.method == 'GET':
+        article = ArticlePost.objects.get(author=request.user,slug=slug)
+        if article:
+            return render(request, 'article/article_content.html',{"article":article})
+        else:
+            return HttpResponse("no article")

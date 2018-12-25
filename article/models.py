@@ -26,5 +26,5 @@ class ArticlePost(models.Model):
         self.slug = text.slugify(self.title)
         super().save(*args, **wargs)
 
-    #def get_absolute_url(self):
-    #    return reverse('article:article_detail', args=[self.id, self.slug])
+    def get_absolute_url(self):
+        return reverse('article:article_content', args=[self.id, self.slug])
